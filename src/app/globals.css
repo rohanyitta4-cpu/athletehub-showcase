@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #f6f7f9;
+  --bg-elevated: #eef1f6;
+  --surface: #ffffff;
+  --surface-2: #e8ecf2;
+  --border: #d8dee8;
+  --border-strong: #b8c0ce;
+  --text: #15181f;
+  --text-muted: #5a6170;
+  --text-dim: #8b93a3;
+  --accent: #15181f;
+  --signal: #2563eb;
+  --signal-soft: rgba(37, 99, 235, 0.12);
+  --success: #159947;
+  --code-bg: #1a1b22;
+  --code-fg: #e6e4e1;
+  --tok-kw: #c792ea;
+  --tok-str: #c3e88d;
+  --tok-num: #f78c6c;
+  --tok-cm: #6a6f7a;
+  --tok-fn: #82aaff;
+  --tok-type: #ffcb6b;
+  --tok-op: #89ddff;
+  --grid: rgba(21, 24, 31, 0.045);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-text: var(--text);
+  --color-muted: var(--text-muted);
+  --color-dim: var(--text-dim);
+  --color-accent: var(--accent);
+  --color-signal: var(--signal);
+  --color-code-bg: var(--code-bg);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background:
+    radial-gradient(1200px 600px at 50% -10%, rgba(37, 99, 235, 0.07), transparent 55%),
+    radial-gradient(800px 400px at 100% 20%, rgba(37, 99, 235, 0.04), transparent 50%),
+    var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgba(37, 99, 235, 0.22);
+  color: #0a0a0a;
+}
+
+.grid-atmosphere {
+  background-image:
+    linear-gradient(to right, var(--grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 35%, black 12%, transparent 75%);
+}
+
+.tech-label {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: #b8c0ce;
+  border-radius: 99px;
+}
+
+.code-tok-kw { color: var(--tok-kw); }
+.code-tok-str { color: var(--tok-str); }
+.code-tok-num { color: var(--tok-num); }
+.code-tok-cm { color: var(--tok-cm); font-style: italic; }
+.code-tok-fn { color: var(--tok-fn); }
+.code-tok-type { color: var(--tok-type); }
+.code-tok-op { color: var(--tok-op); }
+.code-tok-plain { color: var(--code-fg); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
