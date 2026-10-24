@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
-import { ArrowDown, Code2 } from "lucide-react";
+import { ArrowDown } from "lucide-react";
+import { PhoneMockup } from "@/components/shared/PhoneMockup";
 import { SITE } from "@/data/content";
 
 export function HeroSection() {
@@ -11,102 +12,116 @@ export function HeroSection() {
   return (
     <section
       id="overview"
-      className="relative flex min-h-[88vh] items-center justify-center overflow-hidden px-6 md:px-10 lg:px-16"
+      className="relative min-h-[100svh] overflow-hidden mesh-light"
     >
-      <div className="pointer-events-none absolute inset-0 grid-atmosphere" />
+      <div className="pointer-events-none absolute inset-0 grid-fine" />
 
-      <div className="relative z-10 mx-auto flex w-full max-w-2xl flex-col items-center text-center">
-        <motion.div
-          initial={reduce ? false : { opacity: 0, y: -8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1, duration: 0.5 }}
-          className="mb-8 mt-20 flex max-w-xl items-start gap-2.5 rounded-2xl border border-signal/25 bg-signal/5 px-4 py-3 text-left text-sm text-text md:mt-8"
-        >
-          <Code2
-            className="mt-0.5 h-4 w-4 shrink-0 text-signal"
-            strokeWidth={1.75}
-          />
-          <p className="leading-relaxed">
-            <span className="font-semibold">All code on this site is real</span>
-            {" — "}
-            snippets pulled directly from the AthleteHub Flutter app and Cloud
-            Functions. Nothing here is placeholder or mocked.
-          </p>
-        </motion.div>
-
-        <motion.div
-          initial={reduce ? false : { opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.5 }}
-          className="mb-6 flex items-center gap-3"
-        >
-          <Image
-            src="/branding/logo.jpeg"
-            alt="AthleteHub"
-            width={40}
-            height={40}
-            className="rounded-xl object-cover shadow-sm"
-          />
-          <p className="tech-label !mb-0">AthleteHub</p>
-        </motion.div>
-
-        <h1 className="text-[clamp(2.8rem,7vw,5.4rem)] font-semibold leading-[0.95] tracking-tight text-text">
-          <motion.span
-            className="block"
-            initial={reduce ? false : { opacity: 0, y: 28 }}
+      <div className="relative mx-auto flex min-h-[100svh] max-w-[1200px] flex-col justify-center px-5 pt-24 pb-16 md:px-8 lg:flex-row lg:items-center lg:gap-10 lg:pt-20">
+        <div className="relative z-10 max-w-xl flex-1">
+          <motion.div
+            initial={reduce ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.35, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ delay: 0.15, duration: 0.55 }}
+            className="mb-7 inline-flex max-w-md items-start gap-2.5 rounded-xl border border-signal/20 bg-signal/5 px-3.5 py-2.5 text-left text-[13px] leading-snug text-text"
           >
-            Behind the
-          </motion.span>
-          <motion.span
-            className="block text-signal"
-            initial={reduce ? false : { opacity: 0, y: 28 }}
+            <span className="mt-0.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-signal" />
+            All code here is real — pulled from the Flutter app and Cloud
+            Functions.
+          </motion.div>
+
+          <motion.div
+            initial={reduce ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.55, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ delay: 0.25, duration: 0.6 }}
+            className="mb-5 flex items-center gap-3"
           >
-            scenes
-          </motion.span>
-        </h1>
+            <Image
+              src="/branding/logo.jpeg"
+              alt=""
+              width={44}
+              height={44}
+              className="rounded-xl object-cover shadow-sm ring-1 ring-border"
+              priority
+            />
+            <p className="font-display text-2xl font-bold tracking-tight text-ink sm:text-3xl">
+              {SITE.product}
+            </p>
+          </motion.div>
 
-        <motion.p
-          initial={reduce ? false : { opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.9, duration: 0.5 }}
-          className="mt-8 text-sm text-muted"
-        >
-          Developed by {SITE.designer}
-        </motion.p>
-
-        <motion.div
-          initial={reduce ? false : { opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.1, duration: 0.45 }}
-          className="mt-8 flex flex-wrap items-center justify-center gap-3"
-        >
-          <a
-            href="#architecture"
-            className="inline-flex items-center gap-2 rounded-full bg-[#15181f] px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#2a2f3a]"
-          >
-            Explore the system
-            <ArrowDown className="h-4 w-4" />
-          </a>
-          <a
-            href={SITE.github}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-border bg-white px-5 py-3 text-sm font-semibold text-text shadow-sm transition hover:border-border-strong"
-          >
-            <svg
-              className="h-4 w-4"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              aria-hidden
+          <h1 className="font-display text-[clamp(2.75rem,6.5vw,4.75rem)] font-extrabold leading-[0.92] tracking-tight text-ink">
+            <motion.span
+              className="block"
+              initial={reduce ? false : { opacity: 0, y: 28 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
             >
-              <path d="M12 .5C5.37.5 0 5.87 0 12.5c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58 0-.29-.01-1.05-.02-2.06-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.33-1.76-1.33-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5 1 .11-.78.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.62-5.48 5.92.43.37.81 1.1.81 2.22 0 1.6-.01 2.89-.01 3.28 0 .32.21.7.82.58A12.01 12.01 0 0 0 24 12.5C24 5.87 18.63.5 12 .5Z" />
-            </svg>
-            GitHub
-          </a>
+              Built like a
+            </motion.span>
+            <motion.span
+              className="block text-signal"
+              initial={reduce ? false : { opacity: 0, y: 28 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.55, duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+            >
+              product company.
+            </motion.span>
+          </h1>
+
+          <motion.p
+            initial={reduce ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.85, duration: 0.55 }}
+            className="mt-6 max-w-md text-base leading-relaxed text-muted md:text-[17px]"
+          >
+            A walkthrough of the Flutter client, Firebase backend, and Scout AI
+            that power AthleteHub — for judges, mentors, and curious engineers.
+          </motion.p>
+
+          <motion.div
+            initial={reduce ? false : { opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.05, duration: 0.5 }}
+            className="mt-9 flex flex-wrap items-center gap-3"
+          >
+            <a
+              href="#architecture"
+              className="inline-flex items-center gap-2 rounded-lg bg-ink px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#1c1f28]"
+            >
+              Explore the system
+              <ArrowDown className="h-4 w-4" />
+            </a>
+            <a
+              href={SITE.github}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 rounded-lg border border-border bg-white px-5 py-3 text-sm font-semibold text-ink transition hover:border-border-strong"
+            >
+              View source
+            </a>
+          </motion.div>
+
+          <motion.p
+            initial={reduce ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.2, duration: 0.5 }}
+            className="mt-8 text-sm text-dim"
+          >
+            Developed by {SITE.designer}
+          </motion.p>
+        </div>
+
+        <motion.div
+          className="relative mt-14 flex flex-1 justify-center lg:mt-0 lg:justify-end"
+          initial={reduce ? false : { opacity: 0, y: 36, scale: 0.96 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ delay: 0.5, duration: 0.95, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <div className="pointer-events-none absolute top-1/2 left-1/2 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-signal/10 blur-3xl" />
+          <PhoneMockup
+            src="/screenshots/dashboard.png"
+            alt="AthleteHub dashboard"
+            className="relative z-10"
+          />
         </motion.div>
       </div>
     </section>

@@ -31,35 +31,31 @@ const STEP_MS = 6000;
 
 export function SystemTourSection() {
   const reduce = useReducedMotion();
-  const {
-    rootRef,
-    index: step,
-    paused,
-    select,
-    togglePause,
-  } = useArmedAutoCycle({
-    length: SYSTEM_TOUR.length,
-    intervalMs: STEP_MS,
-    amount: 0.08,
-  });
+  const { rootRef, index: step, paused, select, togglePause } =
+    useArmedAutoCycle({
+      length: SYSTEM_TOUR.length,
+      intervalMs: STEP_MS,
+      amount: 0.08,
+    });
 
   const current = SYSTEM_TOUR[step]!;
 
   return (
-    <AnimatedSection id="architecture" className="border-t border-border/70">
+    <AnimatedSection id="architecture" className="border-t border-border">
       <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
         <SectionHeading
           eyebrow="System"
-          title={"How the pieces\nconnect."}
+          title={"How the stack\nfits together."}
+          subtitle="An auto-playing tour of the client, identity, data, backend, and Scout AI layers."
         />
         <button
           type="button"
           onClick={togglePause}
-          className="inline-flex shrink-0 items-center gap-2 rounded-full border border-border bg-white px-4 py-2.5 text-sm font-semibold shadow-sm"
+          className="inline-flex shrink-0 items-center gap-2 rounded-lg border border-border bg-white px-4 py-2.5 text-sm font-semibold shadow-sm"
         >
           {paused ? (
             <>
-              <Play className="h-4 w-4" /> Resume tour
+              <Play className="h-4 w-4" /> Resume
             </>
           ) : (
             <>
@@ -69,9 +65,8 @@ export function SystemTourSection() {
         </button>
       </div>
 
-      <div ref={rootRef} className="mt-12">
-        {/* Flow rail */}
-        <div className="relative mb-10 overflow-x-auto pb-2">
+      <div ref={rootRef} className="mt-14">
+        <div className="relative mb-12 overflow-x-auto pb-2">
           <div className="flex min-w-[720px] items-center justify-between gap-2 px-1">
             {SYSTEM_TOUR.map((s, i) => {
               const on = i === step;
@@ -81,46 +76,45 @@ export function SystemTourSection() {
                   <button
                     type="button"
                     onClick={() => select(i)}
-                    className="flex flex-col items-center gap-2"
+                    className="flex flex-col items-center gap-2.5"
                   >
                     <motion.span
                       animate={{
-                        scale: on ? 1.12 : 1,
+                        scale: on ? 1.08 : 1,
                         backgroundColor: on || done ? s.accent : "#ffffff",
-                        color: on || done ? "#ffffff" : "#5a6170",
-                        borderColor: on || done ? s.accent : "#d8dee8",
+                        color: on || done ? "#ffffff" : "#5c6472",
+                        borderColor: on || done ? s.accent : "rgba(12,14,20,0.1)",
                       }}
-                      className="flex h-12 w-12 items-center justify-center rounded-2xl border shadow-sm"
+                      className="flex h-12 w-12 items-center justify-center rounded-xl border shadow-sm"
                     >
                       {ICONS[s.id]}
                     </motion.span>
                     <span
                       className={cn(
-                        "max-w-[88px] text-center text-[11px] font-semibold leading-tight",
-                        on ? "text-text" : "text-muted",
+                        "max-w-[90px] text-center text-[11px] font-semibold leading-tight",
+                        on ? "text-ink" : "text-muted",
                       )}
                     >
                       {s.title.split(" ")[0]}
                     </span>
                   </button>
                   {i < SYSTEM_TOUR.length - 1 ? (
-                    <div className="relative mx-1 mb-6 h-[2px] flex-1 overflow-hidden rounded bg-border">
+                    <div className="relative mx-1 mb-7 h-px flex-1 overflow-hidden bg-border">
                       <motion.div
                         className="absolute inset-y-0 left-0 bg-signal"
                         initial={false}
                         animate={{ width: i < step ? "100%" : "0%" }}
-                        transition={{ duration: 0.5 }}
+                        transition={{ duration: 0.45 }}
                       />
                       {on && !reduce ? (
                         <motion.span
-                          className="absolute top-1/2 h-2 w-2 -translate-y-1/2 rounded-full bg-signal"
+                          key={`pulse-${step}-${i}`}
+                          className="absolute top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-signal"
                           animate={{ left: ["0%", "100%"] }}
                           transition={{
                             duration: STEP_MS / 1000,
                             ease: "linear",
-                            repeat: 0,
                           }}
-                          key={`pulse-${step}-${i}`}
                         />
                       ) : null}
                     </div>
@@ -131,53 +125,49 @@ export function SystemTourSection() {
           </div>
         </div>
 
-        {/* Detail card */}
-        <div className="grid gap-6 lg:grid-cols-[1.1fr_1fr]">
+        <div className="grid gap-5 lg:grid-cols-[1.15fr_0.85fr]">
           <AnimatePresence mode="wait">
             <motion.div
               key={current.id}
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.4 }}
-              className="rounded-2xl border border-border bg-white p-6 shadow-sm md:p-8"
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.35 }}
+              className="rounded-2xl border border-border bg-white p-7 shadow-sm md:p-9"
             >
-              <div className="mb-4 flex items-center gap-3">
+              <div className="mb-5 flex items-center gap-3.5">
                 <span
-                  className="flex h-12 w-12 items-center justify-center rounded-2xl text-white shadow-sm"
+                  className="flex h-12 w-12 items-center justify-center rounded-xl text-white"
                   style={{ backgroundColor: current.accent }}
                 >
                   {ICONS[current.id]}
                 </span>
                 <div>
                   <p className="tech-label !mb-0">{current.subtitle}</p>
-                  <h3 className="text-2xl font-semibold tracking-tight">
+                  <h3 className="font-display text-2xl font-bold tracking-tight">
                     {current.title}
                   </h3>
                 </div>
               </div>
-              <p className="text-base leading-relaxed text-muted">
+              <p className="text-[15px] leading-relaxed text-muted md:text-base">
                 {current.detail}
               </p>
-              <div className="mt-6 flex flex-wrap gap-2">
+              <div className="mt-7 flex flex-wrap gap-2">
                 {current.tech.map((t) => (
-                  <motion.span
+                  <span
                     key={t}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="rounded-lg border border-border bg-bg px-3 py-1.5 font-mono text-[12px]"
+                    className="rounded-md border border-border bg-bg px-3 py-1.5 font-mono text-[12px] text-ink"
                   >
                     {t}
-                  </motion.span>
+                  </span>
                 ))}
               </div>
             </motion.div>
           </AnimatePresence>
 
-          {/* Mini stack table that highlights with the tour */}
           <div className="overflow-hidden rounded-2xl border border-border bg-white shadow-sm">
-            <div className="border-b border-border bg-[#f8f9fb] px-4 py-3">
-              <p className="tech-label !mb-0">Technologies in this step</p>
+            <div className="border-b border-border bg-bg-elevated/70 px-4 py-3">
+              <p className="tech-label !mb-0">Layers</p>
             </div>
             <ul className="divide-y divide-border">
               {SYSTEM_TOUR.map((s, i) => {
@@ -200,9 +190,7 @@ export function SystemTourSection() {
                               ? "border-transparent text-white"
                               : "border-border text-muted",
                           )}
-                          style={
-                            on ? { backgroundColor: s.accent } : undefined
-                          }
+                          style={on ? { backgroundColor: s.accent } : undefined}
                         >
                           {ICONS[s.id]}
                         </span>
@@ -210,7 +198,7 @@ export function SystemTourSection() {
                           <div
                             className={cn(
                               "text-sm font-semibold",
-                              on ? "text-text" : "text-muted",
+                              on ? "text-ink" : "text-muted",
                             )}
                           >
                             {s.title}
@@ -221,7 +209,7 @@ export function SystemTourSection() {
                       {on ? (
                         <motion.span
                           layoutId="tour-dot"
-                          className="h-2 w-2 rounded-full bg-signal"
+                          className="h-1.5 w-1.5 rounded-full bg-signal"
                         />
                       ) : null}
                     </button>
@@ -229,7 +217,6 @@ export function SystemTourSection() {
                 );
               })}
             </ul>
-            {/* progress */}
             <div className="h-1 bg-border">
               {!paused ? (
                 <motion.div
@@ -237,13 +224,10 @@ export function SystemTourSection() {
                   className="h-full bg-signal"
                   initial={{ width: "0%" }}
                   animate={{ width: "100%" }}
-                  transition={{
-                    duration: STEP_MS / 1000,
-                    ease: "linear",
-                  }}
+                  transition={{ duration: STEP_MS / 1000, ease: "linear" }}
                 />
               ) : (
-                <div className="h-full w-full bg-signal/40" />
+                <div className="h-full w-full bg-signal/35" />
               )}
             </div>
           </div>

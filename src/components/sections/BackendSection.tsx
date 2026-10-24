@@ -28,13 +28,17 @@ export function BackendSection() {
   const totalLines = LINE_COUNTS[fileIdx]!;
 
   return (
-    <AnimatedSection id="code" className="border-t border-border/70">
+    <AnimatedSection id="code" className="border-t border-border">
       <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-        <SectionHeading eyebrow="Code" title={"From the repo."} />
+        <SectionHeading
+          eyebrow="Code"
+          title={"Straight from\nthe repo."}
+          subtitle="Live snippets from Flutter and Cloud Functions — typed out line by line."
+        />
         <button
           type="button"
           onClick={togglePause}
-          className="inline-flex shrink-0 items-center gap-2 rounded-full border border-border bg-white px-4 py-2.5 text-sm font-semibold shadow-sm"
+          className="inline-flex shrink-0 items-center gap-2 rounded-lg border border-border bg-white px-4 py-2.5 text-sm font-semibold shadow-sm"
         >
           {paused ? (
             <>
@@ -52,9 +56,9 @@ export function BackendSection() {
         ref={rootRef}
         className="mt-12 overflow-hidden rounded-2xl border border-border bg-white shadow-sm"
       >
-        <div className="grid lg:grid-cols-[240px_1fr]">
-          <div className="border-b border-border lg:border-b-0 lg:border-r">
-            <p className="tech-label px-4 py-3">Files</p>
+        <div className="grid lg:grid-cols-[260px_1fr]">
+          <div className="border-b border-border bg-bg-elevated/50 lg:border-b-0 lg:border-r">
+            <p className="tech-label px-4 py-3.5">Files</p>
             <div className="max-h-[520px] overflow-y-auto scrollbar-thin pb-3">
               {FN_MODULES.map((f, i) => (
                 <button
@@ -62,10 +66,10 @@ export function BackendSection() {
                   type="button"
                   onClick={() => selectItem(i)}
                   className={cn(
-                    "block w-full px-4 py-2.5 text-left transition",
+                    "block w-full border-l-2 px-4 py-2.5 text-left transition",
                     fileIdx === i
-                      ? "bg-signal/8 text-text"
-                      : "text-muted hover:bg-bg hover:text-text",
+                      ? "border-signal bg-signal/8 text-ink"
+                      : "border-transparent text-muted hover:bg-bg hover:text-ink",
                   )}
                 >
                   <span className="block font-mono text-[12px] font-medium">
@@ -79,10 +83,10 @@ export function BackendSection() {
             </div>
           </div>
 
-          <div className="p-4 md:p-5">
+          <div className="p-5 md:p-6">
             <div className="mb-4">
               <div className="flex items-center justify-between gap-3">
-                <h3 className="text-lg font-semibold tracking-tight">
+                <h3 className="font-display text-lg font-bold tracking-tight">
                   {fn.name}
                 </h3>
                 <span className="font-mono text-[11px] text-dim">

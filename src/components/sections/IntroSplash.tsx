@@ -20,11 +20,11 @@ export function IntroSplash({ onDone }: Props) {
       onDone?.();
       return;
     }
-    const toExit = window.setTimeout(() => setPhase("exit"), 2600);
+    const toExit = window.setTimeout(() => setPhase("exit"), 2400);
     const toGone = window.setTimeout(() => {
       setPhase("gone");
       onDone?.();
-    }, 3400);
+    }, 3100);
     return () => {
       window.clearTimeout(toExit);
       window.clearTimeout(toGone);
@@ -36,76 +36,52 @@ export function IntroSplash({ onDone }: Props) {
       {phase !== "gone" ? (
         <motion.div
           key="intro"
-          className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-[#0c0e14]"
+          className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden mesh-ink"
           initial={{ opacity: 1 }}
           animate={{ opacity: phase === "exit" ? 0 : 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
-          {/* soft radial wash */}
           <motion.div
-            className="pointer-events-none absolute h-[480px] w-[480px] rounded-full bg-signal/25 blur-[100px]"
-            initial={{ opacity: 0, scale: 0.6 }}
-            animate={{ opacity: 1, scale: 1.15 }}
-            transition={{ duration: 1.4, ease: "easeOut" }}
+            className="pointer-events-none absolute h-[520px] w-[520px] rounded-full bg-signal/30 blur-[120px]"
+            initial={{ opacity: 0, scale: 0.7 }}
+            animate={{ opacity: 0.9, scale: 1.1 }}
+            transition={{ duration: 1.3, ease: "easeOut" }}
           />
 
           <div className="relative z-10 flex flex-col items-center px-6 text-center">
             <motion.div
-              initial={{ opacity: 0, scale: 0.7, rotate: -8 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-              className="relative mb-8"
+              initial={{ opacity: 0, y: 28, scale: 0.88 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+              className="mb-7"
             >
-              <motion.div
-                className="absolute -inset-4 rounded-[2rem] bg-signal/30 blur-xl"
-                animate={{ opacity: [0.35, 0.7, 0.35] }}
-                transition={{ duration: 2.2, repeat: Infinity }}
-              />
               <Image
                 src="/branding/logo.jpeg"
-                alt="AthleteHub"
-                width={96}
-                height={96}
+                alt=""
+                width={72}
+                height={72}
+                className="rounded-2xl object-cover shadow-2xl ring-1 ring-white/15"
                 priority
-                className="relative rounded-3xl object-cover shadow-2xl ring-2 ring-white/20"
               />
             </motion.div>
 
-            <div className="overflow-hidden">
-              <motion.h1
-                className="text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl"
-                initial={{ y: "110%", opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.35, duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
-              >
-                {SITE.product}
-              </motion.h1>
-            </div>
+            <motion.h1
+              className="font-display text-4xl font-bold tracking-tight text-white sm:text-5xl"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.25, duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+            >
+              {SITE.product}
+            </motion.h1>
 
             <motion.p
-              className="mt-4 font-mono text-[11px] uppercase tracking-[0.28em] text-white/50"
+              className="mt-3 text-sm tracking-[0.2em] text-white/45 uppercase"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.85, duration: 0.6 }}
+              transition={{ delay: 0.55, duration: 0.6 }}
             >
               Engineering showcase
-            </motion.p>
-
-            <motion.div
-              className="mt-8 h-px w-24 origin-center bg-gradient-to-r from-transparent via-white/50 to-transparent"
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ delay: 1.1, duration: 0.7 }}
-            />
-
-            <motion.p
-              className="mt-6 max-w-sm text-sm text-white/55"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.35, duration: 0.55 }}
-            >
-              Real code. Real architecture. Built by {SITE.designer}.
             </motion.p>
           </div>
         </motion.div>

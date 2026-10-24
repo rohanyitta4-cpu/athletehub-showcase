@@ -22,7 +22,6 @@ type Shot = {
   dwellMs?: number;
 };
 
-/** 1 Home → 2 Share → … → 5 Scout → rest. */
 const SHOTS: Shot[] = [
   {
     id: "dashboard",
@@ -111,16 +110,18 @@ export function FrontendSection() {
   const advance = () => setShot((i) => (i + 1) % SHOTS.length);
 
   return (
-    <AnimatedSection id="frontend" className="border-t border-border/70">
+    <AnimatedSection id="frontend" ink className="overflow-hidden">
       <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
         <SectionHeading
-          eyebrow="App"
+          light
+          eyebrow="Product"
           title={"The Flutter\nexperience."}
+          subtitle="Real screens and recordings from the AthleteHub app — the journey from home to Scout."
         />
         <button
           type="button"
           onClick={() => setPaused((p) => !p)}
-          className="inline-flex shrink-0 items-center gap-2 rounded-full border border-border bg-white px-4 py-2.5 text-sm font-semibold shadow-sm"
+          className="inline-flex shrink-0 items-center gap-2 rounded-lg border border-white/15 bg-white/5 px-4 py-2.5 text-sm font-semibold text-white backdrop-blur"
         >
           {paused ? (
             <>
@@ -136,9 +137,9 @@ export function FrontendSection() {
 
       <div
         ref={rootRef}
-        className="mt-12 grid items-center gap-10 lg:grid-cols-[240px_1fr]"
+        className="mt-14 grid items-center gap-10 lg:grid-cols-[240px_1fr]"
       >
-        <div className="max-h-[520px] space-y-2 overflow-y-auto pr-1">
+        <div className="max-h-[520px] space-y-1.5 overflow-y-auto pr-1">
           {SHOTS.map((s, i) => (
             <button
               key={s.id}
@@ -150,21 +151,23 @@ export function FrontendSection() {
               className={cn(
                 "w-full rounded-xl border px-4 py-3 text-left transition",
                 shot === i
-                  ? "border-signal/40 bg-signal/5 shadow-sm"
-                  : "border-border bg-white hover:border-border-strong",
+                  ? "border-signal-bright/40 bg-white/10"
+                  : "border-white/10 bg-white/[0.03] hover:bg-white/[0.06]",
               )}
             >
               <div className="flex items-center justify-between gap-2">
-                <div className="text-sm font-semibold">{s.label}</div>
+                <div className="text-sm font-semibold text-white">{s.label}</div>
                 {s.video ? (
-                  <span className="tech-label text-[10px] text-signal">REC</span>
+                  <span className="font-mono text-[10px] tracking-wider text-signal-bright">
+                    REC
+                  </span>
                 ) : null}
               </div>
               {shot === i && !paused && !s.video ? (
-                <div className="mt-2 h-1 overflow-hidden rounded-full bg-border">
+                <div className="mt-2 h-0.5 overflow-hidden rounded-full bg-white/15">
                   <motion.div
                     key={s.id}
-                    className="h-full bg-signal"
+                    className="h-full bg-signal-bright"
                     initial={{ width: "0%" }}
                     animate={{ width: "100%" }}
                     transition={{
@@ -175,7 +178,7 @@ export function FrontendSection() {
                 </div>
               ) : null}
               {shot === i && s.video && !paused ? (
-                <p className="mt-1.5 text-[11px] text-muted">
+                <p className="mt-1.5 text-[11px] text-white/45">
                   Playing recording…
                 </p>
               ) : null}
@@ -205,7 +208,7 @@ export function FrontendSection() {
               />
             </motion.div>
           </AnimatePresence>
-          <p className="mx-auto mt-8 max-w-md text-center text-sm text-muted">
+          <p className="mx-auto mt-8 max-w-md text-center text-sm text-white/55">
             {current.note}
           </p>
         </div>
